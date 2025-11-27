@@ -30,7 +30,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule
   ],
   templateUrl: './edit-recipe.html',
-  styleUrls: ['./edit-recipe.scss']
+  styleUrls: ['./edit-recipes.scss']
 })
 export class EditRecipes implements OnInit {
   recipeId: string | null = null;
