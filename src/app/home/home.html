@@ -1,1 +1,87 @@
-<p>home works!</p>
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <mat-icon class="hero-icon">restaurant_menu</mat-icon>
+      
+      <h1 class="hero-title">Recipe Hub</h1>
+      
+      <p class="hero-subtitle">
+        Discover, create, and share amazing recipes
+      </p>
+      
+      <div class="action-buttons">
+        <button 
+          mat-raised-button 
+          class="view-recipes-btn"
+          (click)="navigateToRecipes()">
+          <mat-icon>menu_book</mat-icon>
+          View Recipes
+        </button>
+        
+        <button 
+          mat-raised-button 
+          class="create-recipe-btn"
+          (click)="navigateToCreate()">
+          <mat-icon>add_circle</mat-icon>
+          Create Recipe
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <!-- Feature Card 1 -->
+    <mat-card class="feature-card">
+      <div class="feature-icon-wrapper red">
+        <mat-icon>menu_book</mat-icon>
+      </div>
+      <mat-card-header>
+        <mat-card-title>Browse Recipes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Discover thousands of delicious recipes from around the world, curated just for you.
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Feature Card 2 -->
+    <mat-card class="feature-card">
+      <div class="feature-icon-wrapper green">
+        <mat-icon>add_circle</mat-icon>
+      </div>
+      <mat-card-header>
+        <mat-card-title>Create Your Own</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Share your culinary creations with the community and inspire others to cook.
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Feature Card 3 -->
+    <mat-card class="feature-card">
+      <div class="feature-icon-wrapper red">
+        <mat-icon>schedule</mat-icon>
+      </div>
+      <mat-card-header>
+        <mat-card-title>Quick & Easy</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Find recipes that fit your schedule, from 15-minute meals to weekend projects.
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Feature Card 4 -->
+    <mat-card class="feature-card">
+      <div class="feature-icon-wrapper green">
+        <mat-icon>favorite</mat-icon>
+      </div>
+      <mat-card-header>
+        <mat-card-title>Filter & Search</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Find exactly what you need with powerful filters by difficulty, origin, and ingredients.
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>
