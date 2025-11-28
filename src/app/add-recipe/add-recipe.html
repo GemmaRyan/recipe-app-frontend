@@ -1,7 +1,7 @@
 <div class="add-recipe-container">
   <div class="header-section">
     <h1 class="page-title">
-      <mat-icon style="vertical-align: middle; margin-right: 0.5rem; font-size: 2.5rem; width: 2.5rem; height: 2.5rem;">restaurant</mat-icon>
+      <mat-icon style="vertical-align: middle; margin-right: 0.5rem; font-size: 2.5rem; width: 2.5rem; height: 2.5rem;"></mat-icon>
       Create New Recipe
     </h1>
   </div>
@@ -11,27 +11,23 @@
       <!-- Basic Information Section -->
       <div class="form-section">
         <h2 class="section-title">
-          <mat-icon>info</mat-icon>
           Basic Information
         </h2>
 
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Recipe Name</mat-label>
           <input matInput [(ngModel)]="recipe.name" placeholder="Enter recipe name" required>
-          <mat-icon matPrefix>restaurant_menu</mat-icon>
         </mat-form-field>
 
         <div class="form-row">
           <mat-form-field class="half-width" appearance="outline">
             <mat-label>Origin</mat-label>
-            <input matInput [(ngModel)]="recipe.origin" placeholder="e.g., Italian, Mexican">
-            <mat-icon matPrefix>public</mat-icon>
+            <input matInput [(ngModel)]="recipe.origin" placeholder="e.g., perosnal, online URL">
           </mat-form-field>
 
           <mat-form-field class="half-width" appearance="outline">
             <mat-label>Cooking Duration</mat-label>
             <input matInput [(ngModel)]="recipe.cookingDuration" placeholder="e.g., 30 minutes">
-            <mat-icon matPrefix>schedule</mat-icon>
           </mat-form-field>
         </div>
 
@@ -39,17 +35,17 @@
           <mat-form-field class="half-width" appearance="outline">
             <mat-label>Difficulty Level</mat-label>
             <mat-select [(ngModel)]="recipe.difficulty">
-              <mat-option *ngFor="let level of difficultyLevels" [value]="level">
-                {{ level }} - {{ level === 1 ? 'Very Easy' : level === 2 ? 'Easy' : level === 3 ? 'Medium' : level === 4 ? 'Hard' : 'Very Hard' }}
-              </mat-option>
+              <mat-option [value]="1">1 - Very Easy</mat-option>
+              <mat-option [value]="2">2 - Easy</mat-option>
+              <mat-option [value]="3">3 - Medium</mat-option>
+              <mat-option [value]="4">4 - Hard</mat-option>
+              <mat-option [value]="5">5 - Very Hard</mat-option>
             </mat-select>
-            <mat-icon matPrefix>bar_chart</mat-icon>
           </mat-form-field>
 
           <mat-form-field class="half-width" appearance="outline">
             <mat-label>Image URL (Optional)</mat-label>
             <input matInput [(ngModel)]="recipe.imageUrl" placeholder="https://...">
-            <mat-icon matPrefix>image</mat-icon>
           </mat-form-field>
         </div>
       </div>
@@ -57,7 +53,6 @@
       <!-- Ingredients Section -->
       <div class="form-section">
         <h2 class="section-title">
-          <mat-icon>shopping_cart</mat-icon>
           Ingredients
         </h2>
 
@@ -69,10 +64,9 @@
               [(ngModel)]="newIngredient" 
               placeholder="e.g., 2 cups flour"
               (keyup.enter)="addIngredient()">
-            <mat-icon matPrefix>add_shopping_cart</mat-icon>
           </mat-form-field>
           <button mat-raised-button color="primary" (click)="addIngredient()">
-            <mat-icon>add</mat-icon>
+            <mat-icon style="margin-right: 0.5rem;"></mat-icon>
             Add
           </button>
         </div>
@@ -82,7 +76,8 @@
             <mat-chip *ngFor="let ingredient of recipe.ingredients; let i = index">
               {{ ingredient }}
               <button matChipRemove (click)="removeIngredient(i)">
-                <mat-icon>cancel</mat-icon>
+                <mat-icon></mat-icon>
+                
               </button>
             </mat-chip>
           </mat-chip-set>
@@ -96,23 +91,21 @@
       <!-- Cooking Steps Section -->
       <div class="form-section">
         <h2 class="section-title">
-          <mat-icon>format_list_numbered</mat-icon>
           Cooking Steps
         </h2>
 
         <div class="add-item-container">
           <mat-form-field class="add-item-field" appearance="outline">
-            <mat-label>Add Cooking Step</mat-label>
+            <mat-label></mat-label>
             <textarea 
               matInput 
               [(ngModel)]="newStep" 
               placeholder="Describe this cooking step..."
-              rows="3"
-              (keyup.enter)="addStep()"></textarea>
-            <mat-icon matPrefix>edit</mat-icon>
+              rows="3"></textarea>
+            <mat-icon matPrefix></mat-icon>
           </mat-form-field>
           <button mat-raised-button color="primary" (click)="addStep()">
-            <mat-icon>add</mat-icon>
+            <mat-icon style="margin-right: 0.5rem;"></mat-icon>
             Add Step
           </button>
         </div>
@@ -126,22 +119,25 @@
                 mat-icon-button 
                 [disabled]="i === 0"
                 (click)="moveStepUp(i)"
-                matTooltip="Move up">
-                <mat-icon>arrow_upward</mat-icon>
+                [attr.aria-label]="'Move step up'"
+                [title]="'Move up'">
+                <mat-icon></mat-icon>
               </button>
               <button 
                 mat-icon-button 
                 [disabled]="i === recipe.recipe.length - 1"
                 (click)="moveStepDown(i)"
-                matTooltip="Move down">
-                <mat-icon>arrow_downward</mat-icon>
+                [attr.aria-label]="'Move step down'"
+                [title]="'Move down'">
+                <mat-icon></mat-icon>
               </button>
               <button 
                 mat-icon-button 
                 color="warn"
                 (click)="removeStep(i)"
-                matTooltip="Remove step">
-                <mat-icon>delete</mat-icon>
+                [attr.aria-label]="'Remove step'"
+                [title]="'Remove step'">
+                <mat-icon></mat-icon>
               </button>
             </div>
           </div>
@@ -155,11 +151,11 @@
       <!-- Form Actions -->
       <div class="form-actions">
         <button mat-stroked-button (click)="cancel()">
-          <mat-icon>close</mat-icon>
+          <mat-icon style="margin-right: 0.5rem;"></mat-icon>
           Cancel
         </button>
         <button mat-raised-button color="primary" (click)="createRecipe()">
-          <mat-icon>save</mat-icon>
+          <mat-icon style="margin-right: 0.5rem;"></mat-icon>
           Create Recipe
         </button>
       </div>

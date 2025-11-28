@@ -220,3 +220,53 @@
     color: #8b4513 !important;
   }
 }
+// Add to your existing add-recipe.scss
+
+.page-title {
+  display: flex;
+  align-items: center;
+  
+  mat-icon {
+    flex-shrink: 0;
+  }
+}
+
+.section-title {
+  mat-icon {
+    flex-shrink: 0;
+  }
+}
+
+.add-item-container {
+  button {
+    mat-icon {
+      flex-shrink: 0;
+    }
+  }
+}
+
+.form-actions {
+  button {
+    mat-icon {
+      flex-shrink: 0;
+    }
+  }
+}
+
+::ng-deep {
+  .mat-mdc-form-field-icon-prefix {
+    padding-right: 12px;
+  }
+  
+  .mat-mdc-text-field-wrapper {
+    padding-left: 0 !important;
+  }
+  
+  mat-icon {
+    vertical-align: middle;
+  }
+  
+  .mat-mdc-form-field-infix {
+    min-height: 56px;
+  }
+}

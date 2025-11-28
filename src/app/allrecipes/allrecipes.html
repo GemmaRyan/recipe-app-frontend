@@ -2,11 +2,11 @@
   <!-- Header Section -->
   <div class="header-section">
     <h1 class="page-title">
-      <mat-icon style="vertical-align: middle; margin-right: 0.5rem; font-size: 2.5rem; width: 2.5rem; height: 2.5rem;">restaurant_menu</mat-icon>
+      <mat-icon style="vertical-align: middle; margin-right: 0.5rem; font-size: 2.5rem; width: 2.5rem; height: 2.5rem;"></mat-icon>
       All Recipes
     </h1>
     <button mat-raised-button class="create-btn" (click)="createRecipe()">
-      <mat-icon>add_circle</mat-icon>
+      <mat-icon></mat-icon>
       Create New Recipe
     </button>
   </div>
@@ -14,8 +14,8 @@
   <!-- Filter Card -->
   <mat-card class="filter-card">
     <mat-card-header>
-      <mat-card-title>
-        <mat-icon style="vertical-align: middle; margin-right: 0.5rem;">filter_list</mat-icon>
+      <mat-card-title style="display: flex; align-items: center; gap: 0.5rem;">
+        <mat-icon></mat-icon>
         Filter Recipes
       </mat-card-title>
     </mat-card-header>
@@ -25,61 +25,39 @@
         <mat-form-field appearance="outline">
           <mat-label>Recipe Name</mat-label>
           <input matInput [(ngModel)]="filters.name" placeholder="Search by name">
-          <mat-icon matPrefix>search</mat-icon>
+          <mat-icon matPrefix></mat-icon>
         </mat-form-field>
 
         <!-- Ingredient Filter -->
         <mat-form-field appearance="outline">
           <mat-label>Ingredient</mat-label>
           <input matInput [(ngModel)]="filters.ingredient" placeholder="Search by ingredient">
-          <mat-icon matPrefix>shopping_cart</mat-icon>
+          <mat-icon matPrefix></mat-icon>
         </mat-form-field>
 
-        <!-- Exact Difficulty Filter -->
+         <!-- Exact Difficulty Filter -->
         <mat-form-field appearance="outline">
           <mat-label>Exact Difficulty</mat-label>
           <mat-select [(ngModel)]="filters.difficulty">
             <mat-option [value]="undefined">Any</mat-option>
-            <mat-option *ngFor="let level of difficultyLevels" [value]="level">
-              {{ level }} - {{ level === 1 ? 'Very Easy' : level === 2 ? 'Easy' : level === 3 ? 'Medium' : level === 4 ? 'Hard' : 'Very Hard' }}
-            </mat-option>
+            <mat-option [value]="1">1 - Very Easy</mat-option>
+            <mat-option [value]="2">2 - Easy</mat-option>
+            <mat-option [value]="3">3 - Medium</mat-option>
+            <mat-option [value]="4">4 - Hard</mat-option>
+            <mat-option [value]="5">5 - Very Hard</mat-option>
           </mat-select>
-          <mat-icon matPrefix>bar_chart</mat-icon>
-        </mat-form-field>
-
-        <!-- Min Difficulty Filter -->
-        <mat-form-field appearance="outline">
-          <mat-label>Min Difficulty</mat-label>
-          <mat-select [(ngModel)]="filters.minDifficulty">
-            <mat-option [value]="undefined">Any</mat-option>
-            <mat-option *ngFor="let level of difficultyLevels" [value]="level">
-              {{ level }} Stars
-            </mat-option>
-          </mat-select>
-          <mat-icon matPrefix>arrow_upward</mat-icon>
-        </mat-form-field>
-
-        <!-- Max Difficulty Filter -->
-        <mat-form-field appearance="outline">
-          <mat-label>Max Difficulty</mat-label>
-          <mat-select [(ngModel)]="filters.maxDifficulty">
-            <mat-option [value]="undefined">Any</mat-option>
-            <mat-option *ngFor="let level of difficultyLevels" [value]="level">
-              {{ level }} Stars
-            </mat-option>
-          </mat-select>
-          <mat-icon matPrefix>arrow_downward</mat-icon>
+          <mat-icon matPrefix></mat-icon>
         </mat-form-field>
       </div>
 
       <!-- Filter Actions -->
       <div class="filter-actions">
         <button mat-stroked-button (click)="clearFilters()">
-          <mat-icon style="margin-right: 0.5rem;">clear</mat-icon>
+          <mat-icon></mat-icon>
           Clear Filters
         </button>
         <button mat-raised-button color="primary" (click)="applyFilters()">
-          <mat-icon style="margin-right: 0.5rem;">search</mat-icon>
+          <mat-icon></mat-icon>
           Apply Filters
         </button>
       </div>
@@ -102,17 +80,13 @@
     <mat-card class="recipe-card" *ngFor="let recipe of filteredRecipes" (click)="viewRecipe(recipe._id)">
       <!-- Recipe Image -->
       <img 
-        [src]="recipe.imageUrl || 'https://via.placeholder.com/400x200?text=No+Image'" 
+        [src]="recipe.imageUrl || 'https://via.placeholder.com/400x200/8b4513/ffffff?text=No+Image'" 
         [alt]="recipe.name"
         class="recipe-image"
         mat-card-image>
       
       <mat-card-header>
         <mat-card-title>{{ recipe.name }}</mat-card-title>
-        <mat-card-subtitle *ngIf="recipe.origin">
-          <mat-icon style="vertical-align: middle; font-size: 1rem; width: 1rem; height: 1rem; margin-right: 0.25rem;">public</mat-icon>
-          {{ recipe.origin }}
-        </mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
@@ -120,39 +94,27 @@
         <div class="recipe-meta">
           <!-- Difficulty -->
           <div class="meta-item">
-            <mat-icon>bar_chart</mat-icon>
+            <mat-icon></mat-icon>
             <span class="difficulty-badge">{{ getDifficultyStars(recipe.difficulty) }}</span>
           </div>
 
           <!-- Cooking Duration -->
           <div class="meta-item" *ngIf="recipe.cookingDuration">
-            <mat-icon>schedule</mat-icon>
+            <mat-icon></mat-icon>
             <span>{{ recipe.cookingDuration }}</span>
           </div>
 
           <!-- Ingredients Count -->
           <div class="meta-item">
-            <mat-icon>shopping_cart</mat-icon>
+            <mat-icon></mat-icon>
             <span>{{ recipe.ingredients.length }} items</span>
           </div>
-        </div>
-
-        <!-- Ingredients Preview (First 3) -->
-        <div class="ingredients-chips" *ngIf="recipe.ingredients.length > 0">
-          <mat-chip-set>
-            <mat-chip *ngFor="let ingredient of recipe.ingredients.slice(0, 3)">
-              {{ ingredient }}
-            </mat-chip>
-            <mat-chip *ngIf="recipe.ingredients.length > 3">
-              +{{ recipe.ingredients.length - 3 }} more
-            </mat-chip>
-          </mat-chip-set>
         </div>
       </mat-card-content>
 
       <mat-card-actions align="end">
-        <button mat-button color="primary">
-          <mat-icon style="margin-right: 0.25rem;">visibility</mat-icon>
+        <button mat-button color="primary" (click)="viewRecipe(recipe._id); $event.stopPropagation()">
+          <mat-icon></mat-icon>
           View Recipe
         </button>
       </mat-card-actions>
@@ -160,11 +122,11 @@
 
     <!-- No Results Message -->
     <div class="no-results" *ngIf="filteredRecipes.length === 0">
-      <mat-icon>search_off</mat-icon>
+      <mat-icon></mat-icon>
       <h2>No Recipes Found</h2>
       <p>Try adjusting your filters or create a new recipe!</p>
       <button mat-raised-button color="primary" (click)="createRecipe()">
-        <mat-icon style="margin-right: 0.5rem;">add_circle</mat-icon>
+        <mat-icon></mat-icon>
         Create New Recipe
       </button>
     </div>

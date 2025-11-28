@@ -114,11 +114,14 @@ export class Allrecipes implements OnInit {
     this.loadRecipes();
   }
 
-  viewRecipe(id: string | undefined): void {
-    if (id) {
-      this.router.navigate(['/recipes', id]);
-    }
+ viewRecipe(id: string | undefined): void {
+  if (id) {
+    console.log('Navigating to recipe:', id); // Debug log
+    this.router.navigate(['/recipes', id]);
+  } else {
+    console.error('Recipe ID is undefined');
   }
+}
 
   createRecipe(): void {
     this.router.navigate(['/add-recipe']);

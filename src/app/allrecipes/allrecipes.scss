@@ -185,3 +185,46 @@
     --mdc-protected-button-container-color: #d32f2f;
   }
 }
+// Add to your existing allrecipes.scss
+
+.filter-card {
+  mat-card-title {
+    mat-icon {
+      vertical-align: middle;
+    }
+  }
+}
+
+.filter-actions {
+  button {
+    mat-icon {
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+  }
+}
+
+.recipe-card {
+  mat-card-actions {
+    button {
+      mat-icon {
+        margin-right: 0.25rem;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.no-results {
+  button {
+    mat-icon {
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+  }
+}
+
+
+mat-icon {
+  vertical-align: middle;
+}

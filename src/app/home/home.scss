@@ -95,7 +95,7 @@
   transition: all 0.3s ease;
 
   mat-icon {
-    margin-right: 0.5rem;
+    margin-right: 1rem;
     font-size: 1.5rem;
     width: 1.5rem;
     height: 1.5rem;
@@ -228,5 +228,104 @@
 ::ng-deep {
   .mat-mdc-raised-button {
     border-radius: 50px !important;
+  }
+}
+// Update your existing button styles with these additions
+
+.view-recipes-btn {
+  background-color: #2e7d32 !important;
+  color: white !important;
+  padding: 16px 40px !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  border-radius: 50px !important;
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.4);
+  transition: all 0.3s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+
+  mat-icon {
+    margin-right: 0;
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  span {
+    white-space: nowrap;
+  }
+  
+  &:hover {
+    background-color: #1b5e20 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.5);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    padding: 14px 32px !important;
+    font-size: 1rem !important;
+  }
+}
+
+.create-recipe-btn {
+  background-color: white !important;
+  color: #c62828 !important;
+  padding: 16px 40px !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  border-radius: 50px !important;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+
+  mat-icon {
+    margin-right: 0;
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  span {
+    white-space: nowrap;
+  }
+  
+  &:hover {
+    background-color: #f5f5f5 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    padding: 14px 32px !important;
+    font-size: 1rem !important;
+  }
+}
+
+// Add these additional global fixes
+::ng-deep {
+  .mat-mdc-raised-button {
+    border-radius: 50px !important;
+    
+    .mat-icon {
+      vertical-align: middle;
+    }
+  }
+  
+  // Ensure proper spacing in buttons
+  .mat-mdc-button-touch-target {
+    height: 100%;
   }
 }

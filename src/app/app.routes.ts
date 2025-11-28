@@ -6,11 +6,11 @@ import { EditRecipes } from './edit-recipes/edit-recipes';
 import { AddRecipe } from './add-recipe/add-recipe';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: Home },
+  { path: '', component: Home },
   { path: 'recipes', component: Allrecipes },
-  { path: 'recipe/:id', component: RecipeDetails },
-  { path: 'edit/:id', component: EditRecipes },
+  { path: 'recipes/:id', component: RecipeDetails },  
   { path: 'create', component: AddRecipe },
-  { path: '**', redirectTo: '/home' }
+  { path: 'add-recipe', component: AddRecipe },
+  { path: 'edit-recipe/:id', component: EditRecipes },
+  { path: '**', redirectTo: '' }
 ];
