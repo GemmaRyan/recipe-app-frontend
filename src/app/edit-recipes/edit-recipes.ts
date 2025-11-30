@@ -137,13 +137,11 @@ export class EditRecipes implements OnInit {
       imageUrl: recipe.imageUrl
     });
 
-    // Clear and populate ingredients
     this.ingredients.clear();
     recipe.ingredients.forEach(ingredient => {
       this.ingredients.push(this.fb.control(ingredient, [Validators.required, Validators.minLength(1)]));
     });
 
-    // Clear and populate recipe steps
     this.recipe.clear();
     recipe.recipe.forEach(step => {
       this.recipe.push(this.fb.control(step, [Validators.required, Validators.minLength(1)]));

@@ -18,8 +18,7 @@ export interface Recipe {
   providedIn: 'root'
 })
 export class RecipeService {
-  private apiUrl = `${environment.apiUri}/recipes`;  // This will be http://localhost:3001/api/recipes
-
+  private apiUrl = `${environment.apiUri}/recipes`;  
   constructor(private http: HttpClient) { }
 
   getAllRecipes(filters?: { 

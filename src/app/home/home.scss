@@ -226,13 +226,12 @@ body{
   }
 }
 
-// Global Angular Material overrides
 ::ng-deep {
   .mat-mdc-raised-button {
     border-radius: 50px !important;
   }
 }
-// Update your existing button styles with these additions
+
 
 .view-recipes-btn {
   background-color: #2e7d32 !important;
@@ -316,7 +315,6 @@ body{
   }
 }
 
-// Add these additional global fixes
 ::ng-deep {
   .mat-mdc-raised-button {
     border-radius: 50px !important;
@@ -326,13 +324,12 @@ body{
     }
   }
   
-  // Ensure proper spacing in buttons
   .mat-mdc-button-touch-target {
     height: 100%;
   }
 }
 
 .features-section {
-  margin-top: 100px; /* Adjust this value based on your header height */
+  margin-top: 100px; 
   padding-top: 2rem;
 }

@@ -116,7 +116,7 @@ export class Allrecipes implements OnInit {
 
  viewRecipe(id: string | undefined): void {
   if (id) {
-    console.log('Navigating to recipe:', id); // Debug log
+    console.log('Navigating to recipe:', id); 
     this.router.navigate(['/recipes', id]);
   } else {
     console.error('Recipe ID is undefined');
