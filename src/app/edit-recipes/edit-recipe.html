@@ -15,160 +15,236 @@
 
     <mat-card class="recipe-form-card">
       <mat-card-content>
-        <div class="form-section">
-          <h2 class="section-title">
-            <mat-icon>info</mat-icon>
-            Basic Information
-          </h2>
+        <form [formGroup]="recipeForm" (ngSubmit)="updateRecipe()">
+          <div class="form-section">
+            <h2 class="section-title">
+              <mat-icon>info</mat-icon>
+              Basic Information
+            </h2>
 
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Recipe Name</mat-label>
-            <mat-icon matPrefix>restaurant</mat-icon>
-            <input matInput [(ngModel)]="recipe.name" placeholder="Enter recipe name" required>
-          </mat-form-field>
-
-          <div class="form-row">
-            <mat-form-field class="half-width" appearance="outline">
-              <mat-label>Origin</mat-label>
-              <mat-icon matPrefix>public</mat-icon>
-              <input matInput [(ngModel)]="recipe.origin" placeholder="e.g., Italian, Mexican">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Recipe Name</mat-label>
+              <mat-icon matPrefix>restaurant</mat-icon>
+              <input matInput formControlName="name" placeholder="Enter recipe name" required>
             </mat-form-field>
+            
+            <div class="error-message">
+              @if (name?.invalid && name?.touched) {
+                @if (name?.hasError('required')) {
+                  <span>Recipe name is required.</span>
+                }
+                @if (name?.hasError('minlength')) {
+                  <span>Name must be at least 2 characters.</span>
+                }
+                @if (name?.hasError('alphanumericSpaces')) {
+                  <span>Name can only contain alphanumeric characters and spaces.</span>
+                }
+              }
+            </div>
 
-            <mat-form-field class="half-width" appearance="outline">
-              <mat-label>Cooking Duration</mat-label>
-              <mat-icon matPrefix>schedule</mat-icon>
-              <input matInput [(ngModel)]="recipe.cookingDuration" placeholder="e.g., 30 minutes">
-            </mat-form-field>
-          </div>
-
-          <div class="form-row">
-            <mat-form-field class="half-width" appearance="outline">
-              <mat-label>Difficulty Level</mat-label>
-              <mat-icon matPrefix>bar_chart</mat-icon>
-              <mat-select [(ngModel)]="recipe.difficulty">
-                <mat-option *ngFor="let level of difficultyLevels" [value]="level">
-                  {{ level }} - {{ level === 1 ? 'Very Easy' : level === 2 ? 'Easy' : level === 3 ? 'Medium' : level === 4 ? 'Hard' : 'Very Hard' }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="half-width" appearance="outline">
-              <mat-label>Image URL (Optional)</mat-label>
-              <mat-icon matPrefix>image</mat-icon>
-              <input matInput [(ngModel)]="recipe.imageUrl" placeholder="https://...">
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h2 class="section-title">
-            <mat-icon>shopping_basket</mat-icon>
-            Ingredients
-          </h2>
-
-          <div class="add-item-container">
-            <mat-form-field class="add-item-field" appearance="outline">
-              <mat-label>Add Ingredient</mat-label>
-              <mat-icon matPrefix>add_shopping_cart</mat-icon>
-              <input 
-                matInput 
-                [(ngModel)]="newIngredient" 
-                placeholder="e.g., 2 cups flour"
-                (keyup.enter)="addIngredient()">
-            </mat-form-field>
-            <button mat-raised-button color="primary" (click)="addIngredient()">
-              <mat-icon>add</mat-icon>
-              Add
-            </button>
-          </div>
-
-          <div class="items-list" *ngIf="recipe.ingredients.length > 0">
-            <mat-chip-set>
-              <mat-chip *ngFor="let ingredient of recipe.ingredients; let i = index">
-                {{ ingredient }}
-                <button matChipRemove (click)="removeIngredient(i)">
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip>
-            </mat-chip-set>
-          </div>
-
-          <p class="helper-text" *ngIf="recipe.ingredients.length === 0">
-            No ingredients added yet. Add at least one ingredient.
-          </p>
-        </div>
-
-        <div class="form-section">
-          <h2 class="section-title">
-            <mat-icon>format_list_numbered</mat-icon>
-            Cooking Steps
-          </h2>
-
-          <div class="add-item-container">
-            <mat-form-field class="add-item-field" appearance="outline">
-              <mat-label>Add Cooking Step</mat-label>
-              <mat-icon matPrefix>edit_note</mat-icon>
-              <textarea 
-                matInput 
-                [(ngModel)]="newStep" 
-                placeholder="Describe this cooking step..."
-                rows="3"
-                (keyup.enter)="addStep()"></textarea>
-            </mat-form-field>
-            <button mat-raised-button color="primary" (click)="addStep()">
-              <mat-icon>add</mat-icon>
-              Add Step
-            </button>
-          </div>
-
-          <div class="steps-list" *ngIf="recipe.recipe.length > 0">
-            <div class="step-item" *ngFor="let step of recipe.recipe; let i = index">
-              <div class="step-number">{{ i + 1 }}</div>
-              <div class="step-text">{{ step }}</div>
-              <div class="step-actions">
-                <button 
-                  mat-icon-button 
-                  [disabled]="i === 0"
-                  (click)="moveStepUp(i)"
-                  [attr.aria-label]="'Move step up'"
-                  [title]="'Move up'">
-                  <mat-icon>arrow_upward</mat-icon>
-                </button>
-                <button 
-                  mat-icon-button 
-                  [disabled]="i === recipe.recipe.length - 1"
-                  (click)="moveStepDown(i)"
-                  [attr.aria-label]="'Move step down'"
-                  [title]="'Move down'">
-                  <mat-icon>arrow_downward</mat-icon>
-                </button>
-                <button 
-                  mat-icon-button 
-                  color="warn"
-                  (click)="removeStep(i)"
-                  [attr.aria-label]="'Remove step'"
-                  [title]="'Remove step'">
-                  <mat-icon>delete</mat-icon>
-                </button>
+            <div class="form-row">
+              <div class="half-width-wrapper">
+                <mat-form-field class="half-width" appearance="outline">
+                  <mat-label>Origin</mat-label>
+                  <mat-icon matPrefix>public</mat-icon>
+                  <input matInput formControlName="origin" placeholder="e.g., https://example.com">
+                </mat-form-field>
+                
+                <div class="error-message">
+                  @if (origin?.invalid && origin?.touched) {
+                    @if (origin?.hasError('invalidUrl')) {
+                      <span>Origin must be a valid URL.</span>
+                    }
+                  }
+                </div>
               </div>
+
+              <div class="half-width-wrapper">
+                <mat-form-field class="half-width" appearance="outline">
+                  <mat-label>Cooking Duration</mat-label>
+                  <mat-icon matPrefix>schedule</mat-icon>
+                  <input matInput formControlName="cookingDuration" placeholder="e.g., 30 minutes">
+                </mat-form-field>
+                
+                <div class="error-message">
+                  @if (cookingDuration?.invalid && cookingDuration?.touched) {
+                    @if (cookingDuration?.hasError('numbersSpacesDashes')) {
+                      <span>Cooking duration can only contain numbers, dashes, and spaces.</span>
+                    }
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="half-width-wrapper">
+                <mat-form-field class="half-width" appearance="outline">
+                  <mat-label>Difficulty Level</mat-label>
+                  <mat-icon matPrefix>bar_chart</mat-icon>
+                  <mat-select formControlName="difficulty">
+                    <mat-option [value]="1">1 - Very Easy</mat-option>
+                    <mat-option [value]="2">2 - Easy</mat-option>
+                    <mat-option [value]="3">3 - Medium</mat-option>
+                    <mat-option [value]="4">4 - Hard</mat-option>
+                    <mat-option [value]="5">5 - Very Hard</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                
+                <div class="error-message">
+                  @if (difficulty?.invalid && difficulty?.touched) {
+                    @if (difficulty?.hasError('required')) {
+                      <span>Difficulty level is required.</span>
+                    }
+                    @if (difficulty?.hasError('difficultyTooLow')) {
+                      <span>Difficulty must be at least 1.</span>
+                    }
+                    @if (difficulty?.hasError('difficultyTooHigh')) {
+                      <span>Difficulty cannot be greater than 5.</span>
+                    }
+                  }
+                </div>
+              </div>
+
+              <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Image URL (Optional)</mat-label>
+                <mat-icon matPrefix>image</mat-icon>
+                <input matInput formControlName="imageUrl" placeholder="https://...">
+              </mat-form-field>
             </div>
           </div>
 
-          <p class="helper-text" *ngIf="recipe.recipe.length === 0">
-            No cooking steps added yet. Add at least one step.
-          </p>
-        </div>
+          <div class="form-section">
+            <h2 class="section-title">
+              <mat-icon>shopping_basket</mat-icon>
+              Ingredients
+              <span class="required-badge">*Required</span>
+            </h2>
 
-        <div class="form-actions">
-          <button mat-stroked-button (click)="cancel()">
-            <mat-icon>close</mat-icon>
-            Cancel
-          </button>
-          <button mat-raised-button color="primary" (click)="updateRecipe()">
-            <mat-icon>save</mat-icon>
-            Update Recipe
-          </button>
-        </div>
+            <div class="add-item-container">
+              <mat-form-field class="add-item-field" appearance="outline">
+                <mat-label>Add Ingredient</mat-label>
+                <mat-icon matPrefix>add_shopping_cart</mat-icon>
+                <input 
+                  matInput 
+                  [(ngModel)]="newIngredient" 
+                  [ngModelOptions]="{standalone: true}"
+                  placeholder="e.g., 2 cups flour"
+                  (keyup.enter)="addIngredient()">
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="button" (click)="addIngredient()">
+                <mat-icon>add</mat-icon>
+                Add
+              </button>
+            </div>
+
+            <div class="items-list" *ngIf="ingredients.length > 0">
+              <mat-chip-set>
+                <mat-chip *ngFor="let ingredient of ingredients.controls; let i = index">
+                  {{ ingredient.value }}
+                  <button matChipRemove type="button" (click)="removeIngredient(i)">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              </mat-chip-set>
+            </div>
+
+            <div class="error-message">
+              @if (ingredients.invalid && ingredients.touched) {
+                @if (ingredients.hasError('minArrayLength')) {
+                  <span>At least one ingredient is required.</span>
+                }
+              }
+            </div>
+
+            <p class="helper-text" *ngIf="ingredients.length === 0">
+              No ingredients added yet. Add at least one ingredient.
+            </p>
+          </div>
+
+          <div class="form-section">
+            <h2 class="section-title">
+              <mat-icon>format_list_numbered</mat-icon>
+              Cooking Steps
+              <span class="required-badge">*Required</span>
+            </h2>
+
+            <div class="add-item-container">
+              <mat-form-field class="add-item-field" appearance="outline">
+                <mat-label>Add Cooking Step</mat-label>
+                <mat-icon matPrefix>edit_note</mat-icon>
+                <textarea 
+                  matInput 
+                  [(ngModel)]="newStep" 
+                  [ngModelOptions]="{standalone: true}"
+                  placeholder="Describe this cooking step..."
+                  rows="3"></textarea>
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="button" (click)="addStep()">
+                <mat-icon>add</mat-icon>
+                Add Step
+              </button>
+            </div>
+
+            <div class="steps-list" *ngIf="recipe.length > 0">
+              <div class="step-item" *ngFor="let step of recipe.controls; let i = index">
+                <div class="step-number">{{ i + 1 }}</div>
+                <div class="step-text">{{ step.value }}</div>
+                <div class="step-actions">
+                  <button 
+                    mat-icon-button 
+                    type="button"
+                    [disabled]="i === 0"
+                    (click)="moveStepUp(i)"
+                    [attr.aria-label]="'Move step up'"
+                    [title]="'Move up'">
+                    <mat-icon>arrow_upward</mat-icon>
+                  </button>
+                  <button 
+                    mat-icon-button 
+                    type="button"
+                    [disabled]="i === recipe.length - 1"
+                    (click)="moveStepDown(i)"
+                    [attr.aria-label]="'Move step down'"
+                    [title]="'Move down'">
+                    <mat-icon>arrow_downward</mat-icon>
+                  </button>
+                  <button 
+                    mat-icon-button 
+                    type="button"
+                    color="warn"
+                    (click)="removeStep(i)"
+                    [attr.aria-label]="'Remove step'"
+                    [title]="'Remove step'">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="error-message">
+              @if (recipe.invalid && recipe.touched) {
+                @if (recipe.hasError('minArrayLength')) {
+                  <span>At least one recipe step is required.</span>
+                }
+              }
+            </div>
+
+            <p class="helper-text" *ngIf="recipe.length === 0">
+              No cooking steps added yet. Add at least one step.
+            </p>
+          </div>
+
+          <div class="form-actions">
+            <button mat-stroked-button type="button" (click)="cancel()">
+              <mat-icon>close</mat-icon>
+              Cancel
+            </button>
+            <button mat-raised-button color="primary" type="submit">
+              <mat-icon>save</mat-icon>
+              Update Recipe
+            </button>
+          </div>
+        </form>
       </mat-card-content>
     </mat-card>
   </div>

@@ -69,7 +69,7 @@
   <div class="recipes-grid" *ngIf="!loading">
     <mat-card class="recipe-card" *ngFor="let recipe of filteredRecipes" (click)="viewRecipe(recipe._id)">
       <img 
-        [src]="recipe.imageUrl || 'https://via.placeholder.com/400x200/8b4513/ffffff?text=No+Image'" 
+        [src]="recipe.imageUrl || 'https://placehold.net/default.png'" [alt]="recipe.name"
         [alt]="recipe.name"
         class="recipe-image"
         mat-card-image>

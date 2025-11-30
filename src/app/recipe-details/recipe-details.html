@@ -26,7 +26,7 @@
         <div class="recipe-header">
           <img 
             *ngIf="recipe.imageUrl" 
-            [src]="recipe.imageUrl" 
+            [src]="recipe.imageUrl || 'https://placehold.net/default.png'" [alt]="recipe.name"
             [alt]="recipe.name"
             class="recipe-hero-image">
           
