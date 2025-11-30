@@ -3,7 +3,9 @@
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   padding: 0;
 }
-
+body{
+  color-scheme: dark;
+}
 .hero-section {
   background: linear-gradient(135deg, #c62828 0%, #e53935 100%);
   min-height: 70vh;
@@ -328,4 +330,9 @@
   .mat-mdc-button-touch-target {
     height: 100%;
   }
+}
+
+.features-section {
+  margin-top: 100px; /* Adjust this value based on your header height */
+  padding-top: 2rem;
 }

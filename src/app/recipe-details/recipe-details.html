@@ -1,21 +1,17 @@
 <div class="recipe-details-container">
-  <!-- Loading Spinner -->
   <div class="loading-spinner" *ngIf="loading">
     <mat-spinner color="primary"></mat-spinner>
   </div>
 
-  <!-- Recipe Content -->
   <div class="recipe-content" *ngIf="!loading && recipe">
-    <!-- Header Actions -->
     <div class="header-actions">
       <button mat-raised-button class="back-btn" (click)="goBack()">
-        <mat-icon style="margin-right: 0.5rem;"></mat-icon>
+        <mat-icon>arrow_back</mat-icon>
         Back to Recipes
       </button>
-
       <div class="action-buttons">
         <button mat-raised-button color="primary" (click)="editRecipe()">
-          <mat-icon></mat-icon>
+          <mat-icon>edit</mat-icon>
           Edit Recipe
         </button>
         <button mat-raised-button class="delete-btn" (click)="deleteRecipe()">
@@ -25,48 +21,41 @@
       </div>
     </div>
 
-    <!-- Recipe Card -->
     <mat-card class="recipe-card">
       <mat-card-content>
         <div class="recipe-header">
-          <!-- Hero Image -->
           <img 
             *ngIf="recipe.imageUrl" 
             [src]="recipe.imageUrl" 
             [alt]="recipe.name"
             class="recipe-hero-image">
           
-          <!-- Title Section -->
           <div class="recipe-title-section">
             <h1 class="recipe-title">{{ recipe.name }}</h1>
 
-            <!-- Meta Header -->
             <div class="recipe-meta-header">
-              <!-- Difficulty -->
               <div class="difficulty-display">
+                <mat-icon>local_fire_department</mat-icon>
                 <span class="difficulty-label">Difficulty:</span>
                 <span class="difficulty-stars">{{ getDifficultyStars(recipe.difficulty) }}</span>
               </div>
 
-              <!-- Duration -->
               <div class="duration-display" *ngIf="recipe.cookingDuration">
-                <mat-icon></mat-icon>
+                <mat-icon>schedule</mat-icon>
                 <span>{{ recipe.cookingDuration }}</span>
               </div>
 
-              <!-- Origin -->
               <a *ngIf="recipe.origin" class="origin-link" href="javascript:void(0)">
-                <mat-icon></mat-icon>
+                <mat-icon>public</mat-icon>
                 <span>{{ recipe.origin }} Cuisine</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- Ingredients Section -->
         <div class="ingredients-section">
           <h2 class="section-title">
-            <mat-icon></mat-icon>
+            <mat-icon>shopping_basket</mat-icon>
             Ingredients
           </h2>
 
@@ -79,10 +68,9 @@
           </div>
         </div>
 
-        <!-- Instructions Section -->
         <div class="instructions-section">
           <h2 class="section-title">
-            <mat-icon></mat-icon>
+            <mat-icon>format_list_numbered</mat-icon>
             Cooking Instructions
           </h2>
 
@@ -97,15 +85,14 @@
     </mat-card>
   </div>
 
-  <!-- Error State (Optional) -->
   <div class="recipe-content" *ngIf="!loading && !recipe">
     <mat-card>
       <mat-card-content style="text-align: center; padding: 3rem;">
-        <mat-icon style="font-size: 4rem; width: 4rem; height: 4rem; color: #d32f2f; margin-bottom: 1rem;"></mat-icon>
+        <mat-icon style="font-size: 4rem; width: 4rem; height: 4rem; color: #d32f2f; margin-bottom: 1rem;">error_outline</mat-icon>
         <h2 style="color: #8b4513; margin-bottom: 1rem;">Recipe Not Found</h2>
         <p style="color: #6d4c41; margin-bottom: 2rem;">The recipe you're looking for doesn't exist or has been removed.</p>
         <button mat-raised-button color="primary" (click)="goBack()">
-          <mat-icon style="margin-right: 0.5rem;"></mat-icon>
+          <mat-icon>arrow_back</mat-icon>
           Back to Recipes
         </button>
       </mat-card-content>
