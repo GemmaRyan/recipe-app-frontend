@@ -19,7 +19,8 @@ export class Home {
     this.router.navigate(['/recipes']);
   }
 
-  navigateToCreate(): void {
-    this.router.navigate(['/create']);
-  }
+ navigateToLogin(): void {
+  this.router.navigate(['/login']);
+}
+
 }
