@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -33,7 +34,8 @@ export class RecipeDetails implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private recipeService: RecipeService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public auth: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -60,27 +62,37 @@ export class RecipeDetails implements OnInit {
   }
 
   editRecipe(): void {
-    if (this.recipeId) {
-      this.router.navigate(['/edit-recipe', this.recipeId]);
-    }
+  if (!this.auth.isLoggedIn()) {
+    this.snackBar.open('Please login to edit recipes', 'Close', { duration: 3000 });
+    return;
   }
 
-  deleteRecipe(): void {
-    if (confirm('Are you sure you want to delete this recipe?')) {
-      if (this.recipeId) {
-        this.recipeService.deleteRecipe(this.recipeId).subscribe({
-          next: () => {
-            this.snackBar.open('Recipe deleted successfully', 'Close', { duration: 3000 });
-            this.router.navigate(['/recipes']);
-          },
-          error: (err) => {
-            console.error('Error deleting recipe:', err);
-            this.snackBar.open('Failed to delete recipe', 'Close', { duration: 3000 });
-          }
-        });
-      }
+  if (this.recipeId) {
+    this.router.navigate(['/edit-recipe', this.recipeId]);
+  }
+}
+
+deleteRecipe(): void {
+  if (!this.auth.isLoggedIn()) {
+    this.snackBar.open('Please login to delete recipes', 'Close', { duration: 3000 });
+    return;
+  }
+
+  if (confirm('Are you sure you want to delete this recipe?')) {
+    if (this.recipeId) {
+      this.recipeService.deleteRecipe(this.recipeId).subscribe({
+        next: () => {
+          this.snackBar.open('Recipe deleted successfully', 'Close', { duration: 3000 });
+          this.router.navigate(['/recipes']);
+        },
+        error: () => {
+          this.snackBar.open('Failed to delete recipe', 'Close', { duration: 3000 });
+        }
+      });
     }
   }
+}
+
 
   goBack(): void {
     this.router.navigate(['/recipes']);
@@ -89,4 +101,20 @@ export class RecipeDetails implements OnInit {
   getDifficultyStars(difficulty: number): string {
     return '⭐'.repeat(difficulty);
   }
+
+  isOwner(): boolean {
+  if (!this.recipe) return false;
+
+  const loggedInUsername = this.auth.getUsername();
+  return this.recipe.createdByUsername === loggedInUsername;
+}
+
+isAdmin(): boolean {
+  return this.auth.getRole() === 'admin';
+}
+
+canEditOrDelete(): boolean {
+  return this.auth.isLoggedIn() && (this.isOwner() || this.isAdmin());
+}
+
 }

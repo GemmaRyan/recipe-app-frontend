@@ -9,16 +9,42 @@
         <mat-icon>arrow_back</mat-icon>
         Back to Recipes
       </button>
-      <div class="action-buttons">
-        <button mat-raised-button color="primary" (click)="editRecipe()">
-          <mat-icon>edit</mat-icon>
-          Edit Recipe
-        </button>
-        <button mat-raised-button class="delete-btn" (click)="deleteRecipe()">
-          <mat-icon>delete</mat-icon>
-          Delete
-        </button>
-      </div>
+      <div class="action-buttons" *ngIf="canEditOrDelete()">
+  <button mat-raised-button color="primary" (click)="editRecipe()">
+    <mat-icon>edit</mat-icon>
+    Edit Recipe
+  </button>
+
+  <button mat-raised-button class="delete-btn" (click)="deleteRecipe()">
+    <mat-icon>delete</mat-icon>
+    Delete
+  </button>
+</div>
+
+<!-- Optional info when user cannot edit/delete -->
+<div class="action-buttons" *ngIf="auth.isLoggedIn() && !canEditOrDelete()">
+  <button mat-stroked-button disabled>
+    <mat-icon>lock</mat-icon>
+    You don't have permission to edit this recipe
+  </button>
+</div>
+
+<div class="action-buttons" *ngIf="!auth.isLoggedIn()">
+  <button mat-stroked-button disabled>
+    <mat-icon>lock</mat-icon>
+    Login to edit or delete recipes
+  </button>
+</div>
+
+
+<!-- Optional message when logged out -->
+<div class="action-buttons" *ngIf="!auth.isLoggedIn()">
+  <button mat-stroked-button disabled>
+    <mat-icon>lock</mat-icon>
+    Login to edit or delete recipes
+  </button>
+</div>
+
     </div>
 
     <mat-card class="recipe-card">

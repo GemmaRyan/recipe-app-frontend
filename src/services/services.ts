@@ -12,6 +12,8 @@ export interface Recipe {
   recipe: string[];
   cookingDuration?: string;
   imageUrl?: string;
+  createdBy?: string;
+  createdByUsername?: string; 
 }
 
 @Injectable({

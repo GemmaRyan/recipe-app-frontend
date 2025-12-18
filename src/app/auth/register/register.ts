@@ -36,14 +36,16 @@ export class Register implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {
-  this.registerForm = this.fb.group({
+    ngOnInit(): void {
+    this.registerForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
-    email: ['', [Validators.required, Validators.email]],
-    phone: ['', [
+    username: ['', [
       Validators.required,
-      Validators.pattern(/^[0-9+\s()-]{7,15}$/)
+      Validators.minLength(3),
+      Validators.pattern(/^[a-zA-Z0-9_]+$/)
     ]],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.pattern(/^[0-9+\s()-]{7,15}$/)]],
     dateOfBirth: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
@@ -53,6 +55,10 @@ export class Register implements OnInit {
   get name() {
     return this.registerForm.get('name');
   }
+  get username() {
+  return this.registerForm.get('username');
+  }
+
 
   get email() {
     return this.registerForm.get('email');

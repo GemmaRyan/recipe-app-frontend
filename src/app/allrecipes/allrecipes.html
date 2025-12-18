@@ -143,6 +143,13 @@
             <span>{{ recipe.ingredients.length }} items</span>
           </div>
         </div>
+
+        <div class="made-by">
+          <mat-icon>person</mat-icon>
+          <span>
+            Made by <strong>{{ recipe.createdByUsername }}</strong>
+          </span>
+        </div>
       </mat-card-content>
 
       <mat-card-actions align="end">

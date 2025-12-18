@@ -323,3 +323,22 @@ mat-icon {
     background-color: #fbe9e7;
   }
 }
+
+.made-by {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #6d4c41;
+
+  mat-icon {
+    font-size: 18px;
+    color: #8b4513;
+  }
+
+  strong {
+    color: #8b4513;
+  }
+}
+

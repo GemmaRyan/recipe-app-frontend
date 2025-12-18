@@ -28,6 +28,25 @@
           }
         </div>
 
+        <!-- Username -->
+        <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Username</mat-label>
+        <mat-icon matPrefix>alternate_email</mat-icon>
+        <input matInput formControlName="username" placeholder="Choose a username">
+        </mat-form-field>
+
+        <div class="error-message">
+        @if (username?.touched && username?.invalid) {
+            @if (username?.hasError('required')) {
+            <span>Username is required.</span>
+            }
+            @if (username?.hasError('pattern')) {
+            <span>Only letters, numbers, and underscores allowed.</span>
+            }
+        }
+        </div>
+
+
         <!-- Email -->
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Email</mat-label>

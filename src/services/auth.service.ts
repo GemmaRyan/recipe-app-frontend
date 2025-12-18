@@ -45,5 +45,27 @@ export class AuthService {
     return null;
   }
 }
+getUsername(): string | null {
+  const token = localStorage.getItem('accessToken');
+  if (!token) return null;
 
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.username ?? null;
+  } catch {
+    return null;
+  }
+}
+
+getRole(): string | null {
+  const token = localStorage.getItem('accessToken');
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.role ?? null;
+  } catch {
+    return null;
+  }
+}
 }
