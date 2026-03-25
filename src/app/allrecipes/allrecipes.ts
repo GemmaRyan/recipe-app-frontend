@@ -34,6 +34,7 @@ import { AuthService } from '../../services/auth.service';
 export class Allrecipes implements OnInit {
   recipes: Recipe[] = [];
   filteredRecipes: Recipe[] = [];
+  topViewedRecipeId: string | null = null;
   loading = false;
   
   filters = {
@@ -62,8 +63,9 @@ export class Allrecipes implements OnInit {
 
 
   ngOnInit(): void {
-    this.loadRecipes();
-  }
+  this.loadRecipes();
+  this.loadTopViewedRecipe();
+}
 
   loadRecipes(): void {
     this.loading = true;
@@ -148,6 +150,25 @@ export class Allrecipes implements OnInit {
   if (!token) return null;
   const payload = JSON.parse(atob(token.split('.')[1]));
   return payload.username;
+}
+
+isAdmin(): boolean {
+  return this.auth.getRole() === 'admin';
+}
+
+loadTopViewedRecipe(): void {
+  this.recipeService.getTopViewedRecipe().subscribe({
+    next: (recipe) => {
+      this.topViewedRecipeId = recipe._id || null;
+    },
+    error: (err) => {
+      console.error('Error loading top viewed recipe:', err);
+    }
+  });
+}
+
+isTopViewed(recipeId: string | undefined): boolean {
+  return !!recipeId && recipeId === this.topViewedRecipeId;
 }
 
 }

@@ -46,20 +46,25 @@ export class RecipeDetails implements OnInit {
   }
 
   loadRecipe(id: string): void {
-    this.loading = true;
-    this.recipeService.getRecipeById(id).subscribe({
-      next: (data) => {
-        this.recipe = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error loading recipe:', err);
-        this.snackBar.open('Failed to load recipe', 'Close', { duration: 3000 });
-        this.loading = false;
-        this.router.navigate(['/recipes']);
-      }
-    });
-  }
+  this.loading = true;
+  this.recipeService.getRecipeById(id).subscribe({
+    next: (data) => {
+      this.recipe = data;
+      this.loading = false;
+
+      this.recipeService.trackRecipeView(id).subscribe({
+        next: () => console.log('Recipe view counted'),
+        error: (err) => console.error('Failed to count recipe view', err)
+      });
+    },
+    error: (err) => {
+      console.error('Error loading recipe:', err);
+      this.snackBar.open('Failed to load recipe', 'Close', { duration: 3000 });
+      this.loading = false;
+      this.router.navigate(['/recipes']);
+    }
+  });
+}
 
   editRecipe(): void {
   if (!this.auth.isLoggedIn()) {

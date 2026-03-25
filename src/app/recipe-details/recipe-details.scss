@@ -226,3 +226,47 @@
     --mdc-snackbar-supporting-text-color: white;
   }
 }
+.recipe-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.top-viewed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #ffe082;
+  color: #8b4513;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  width: fit-content;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.view-count {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #6d4c41;
+
+  mat-icon {
+    font-size: 18px;
+    color: #8b4513;
+    width: 18px;
+    height: 18px;
+  }
+
+  strong {
+    color: #8b4513;
+  }
+}

@@ -123,7 +123,14 @@
         mat-card-image>
       
       <mat-card-header>
-        <mat-card-title>{{ recipe.name }}</mat-card-title>
+        <div class="recipe-header-content">
+          <mat-card-title>{{ recipe.name }}</mat-card-title>
+
+          <div class="top-viewed-badge" *ngIf="isTopViewed(recipe._id)">
+            <mat-icon>trending_up</mat-icon>
+            Most Popular Recipe
+          </div>
+        </div>
       </mat-card-header>
 
       <mat-card-content>
@@ -149,6 +156,11 @@
           <span>
             Made by <strong>{{ recipe.createdByUsername }}</strong>
           </span>
+        </div>
+
+        <div class="view-count" *ngIf="isAdmin()">
+          <mat-icon>bar_chart</mat-icon>
+          <span>Views: <strong>{{ recipe.viewCount || 0 }}</strong></span>
         </div>
       </mat-card-content>
 

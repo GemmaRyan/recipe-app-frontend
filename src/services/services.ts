@@ -14,6 +14,8 @@ export interface Recipe {
   imageUrl?: string;
   createdBy?: string;
   createdByUsername?: string; 
+  viewCount?: number;
+  lastViewedAt?: string;
 }
 
 @Injectable({
@@ -21,6 +23,8 @@ export interface Recipe {
 })
 export class RecipeService {
   private apiUrl = `${environment.apiUri}/recipes`;  
+  private lambdaViewApi = `${environment.lambdaViewApi}`; // Lambda API URL
+
   constructor(private http: HttpClient) { }
 
   getAllRecipes(filters?: { 
@@ -79,5 +83,13 @@ export class RecipeService {
 
   deleteRecipe(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+
+  trackRecipeView(id: string): Observable<any> {
+  return this.http.post(`${this.lambdaViewApi}/recipe-view/${id}`, {});
+  }
+
+  getTopViewedRecipe(): Observable<Recipe> {
+    return this.http.get<Recipe>(`${this.apiUrl}/top-viewed`);
   }
 }
