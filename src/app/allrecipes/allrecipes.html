@@ -1,14 +1,62 @@
 <div class="allrecipes-container">
   <div class="header-section">
-    <h1 class="page-title">
-      <mat-icon class="header-icon">restaurant_menu</mat-icon>
-      All Recipes
-    </h1>
-    <button mat-raised-button class="create-btn" (click)="createRecipe()">
+  <h1 class="page-title">
+    <mat-icon class="header-icon">restaurant_menu</mat-icon>
+    All Recipes
+  </h1>
+
+  <div class="header-actions">
+
+    <!-- Create Recipe (LOGGED IN ONLY) -->
+    <button
+      *ngIf="auth.isLoggedIn()"
+      mat-raised-button
+      class="create-btn"
+      (click)="createRecipe()">
       <mat-icon>add</mat-icon>
-      Create New Recipe
+      Create Recipe
     </button>
+
+    <!-- AUTH BUTTONS -->
+    <div class="auth-buttons">
+
+      <!-- Logged OUT -->
+      <button
+        *ngIf="!auth.isLoggedIn()"
+        mat-stroked-button
+        class="login-btn"
+        (click)="router.navigate(['/login'])">
+        <mat-icon>login</mat-icon>
+        Login
+      </button>
+
+      <button
+        *ngIf="!auth.isLoggedIn()"
+        mat-raised-button
+        class="register-btn"
+        (click)="router.navigate(['/register'])">
+        <mat-icon>person_add</mat-icon>
+        Register
+      </button>
+
+      <!-- Logged IN -->
+      <div *ngIf="auth.isLoggedIn()" class="user-info">
+        <mat-icon>account_circle</mat-icon>
+        <span class="user-email">{{ userEmail }}</span>
+
+        <button
+          mat-stroked-button
+          class="logout-btn"
+          (click)="auth.logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </div>
+
+    </div>
   </div>
+</div>
+
 
   <mat-card class="filter-card">
     <mat-card-header>
@@ -94,6 +142,13 @@
             <mat-icon>list</mat-icon>
             <span>{{ recipe.ingredients.length }} items</span>
           </div>
+        </div>
+
+        <div class="made-by">
+          <mat-icon>person</mat-icon>
+          <span>
+            Made by <strong>{{ recipe.createdByUsername }}</strong>
+          </span>
         </div>
       </mat-card-content>
 

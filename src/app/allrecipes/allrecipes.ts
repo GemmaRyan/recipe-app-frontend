@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-allrecipes',
@@ -47,8 +48,18 @@ export class Allrecipes implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private router: Router
+    public router: Router,
+    public auth: AuthService
+   
+
+    
   ) {}
+ 
+    get userEmail(): string | null {
+    return this.auth.getUserEmail();
+  }
+
+
 
   ngOnInit(): void {
     this.loadRecipes();
@@ -130,4 +141,13 @@ export class Allrecipes implements OnInit {
   getDifficultyStars(difficulty: number): string {
     return '⭐'.repeat(difficulty);
   }
+
+  
+  getUsername(): string | null {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return payload.username;
+}
+
 }

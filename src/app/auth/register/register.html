@@ -1,0 +1,134 @@
+<div class="auth-container">
+  <div class="header-section">
+    <h1 class="page-title">
+      <mat-icon class="header-icon">person_add</mat-icon>
+      Register
+    </h1>
+  </div>
+
+  <mat-card class="auth-form-card">
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+        <!-- Name -->
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Name</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput formControlName="name" placeholder="Enter your name">
+        </mat-form-field>
+
+        <div class="error-message">
+          @if (name?.touched && name?.invalid) {
+            @if (name?.hasError('required')) {
+              <span>Name is required.</span>
+            }
+            @if (name?.hasError('minlength')) {
+              <span>Name must be at least 2 characters.</span>
+            }
+          }
+        </div>
+
+        <!-- Username -->
+        <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Username</mat-label>
+        <mat-icon matPrefix>alternate_email</mat-icon>
+        <input matInput formControlName="username" placeholder="Choose a username">
+        </mat-form-field>
+
+        <div class="error-message">
+        @if (username?.touched && username?.invalid) {
+            @if (username?.hasError('required')) {
+            <span>Username is required.</span>
+            }
+            @if (username?.hasError('pattern')) {
+            <span>Only letters, numbers, and underscores allowed.</span>
+            }
+        }
+        </div>
+
+
+        <!-- Email -->
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <mat-icon matPrefix>email</mat-icon>
+          <input matInput formControlName="email" placeholder="Enter your email">
+        </mat-form-field>
+
+        <div class="error-message">
+          @if (email?.touched && email?.invalid) {
+            @if (email?.hasError('required')) {
+              <span>Email is required.</span>
+            }
+            @if (email?.hasError('email')) {
+              <span>Invalid email format.</span>
+            }
+          }
+        </div>
+
+        <!-- Phone Number -->
+            <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <mat-icon matPrefix>phone</mat-icon>
+            <input matInput formControlName="phone" placeholder="e.g. +353871234567">
+            </mat-form-field>
+
+            <div class="error-message">
+            @if (phone?.touched && phone?.invalid) {
+                @if (phone?.hasError('required')) {
+                <span>Phone number is required.</span>
+                }
+                @if (phone?.hasError('pattern')) {
+                <span>Enter a valid phone number.</span>
+                }
+            }
+            </div>
+
+
+            <!-- Date of Birth -->
+            <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Date of Birth</mat-label>
+            <mat-icon matPrefix>cake</mat-icon>
+            <input matInput type="date" formControlName="dateOfBirth">
+            </mat-form-field>
+
+            <div class="error-message">
+            @if (dateOfBirth?.touched && dateOfBirth?.invalid) {
+                <span>Date of birth is required.</span>
+            }
+            </div>
+
+
+
+        <!-- Password -->
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput type="password" formControlName="password">
+        </mat-form-field>
+
+        <div class="error-message">
+          @if (password?.touched && password?.invalid) {
+            @if (password?.hasError('required')) {
+              <span>Password is required.</span>
+            }
+            @if (password?.hasError('minlength')) {
+              <span>Password must be at least 6 characters.</span>
+            }
+          }
+        </div>
+
+        <div class="form-actions">
+          <button mat-stroked-button type="button" (click)="cancel()">
+            <mat-icon>close</mat-icon>
+            Cancel
+          </button>
+
+          <button mat-raised-button color="primary" type="submit">
+            <mat-icon>person_add</mat-icon>
+            Register
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
