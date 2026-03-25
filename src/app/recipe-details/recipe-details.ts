@@ -45,7 +45,7 @@ export class RecipeDetails implements OnInit {
     }
   }
 
-  loadRecipe(id: string): void {
+loadRecipe(id: string): void {
   this.loading = true;
   this.recipeService.getRecipeById(id).subscribe({
     next: (data) => {
@@ -53,8 +53,12 @@ export class RecipeDetails implements OnInit {
       this.loading = false;
 
       this.recipeService.trackRecipeView(id).subscribe({
-        next: () => console.log('Recipe view counted'),
-        error: (err) => console.error('Failed to count recipe view', err)
+        next: () => {
+          console.log('Recipe view counted');
+        },
+        error: (err) => {
+          console.error('Failed to count recipe view:', err);
+        }
       });
     },
     error: (err) => {
