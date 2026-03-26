@@ -22,14 +22,14 @@
 </div>
 
 <!-- Optional info when user cannot edit/delete -->
-<div class="action-buttons" *ngIf="auth.isLoggedIn() && !canEditOrDelete()">
+<div class="action-buttons" *ngIf="auth.isLoggedInSignal() && !canEditOrDelete()">
   <button mat-stroked-button disabled>
     <mat-icon>lock</mat-icon>
     You don't have permission to edit this recipe
   </button>
 </div>
 
-<div class="action-buttons" *ngIf="!auth.isLoggedIn()">
+<div class="action-buttons" *ngIf="auth.isLoggedInSignal()">
   <button mat-stroked-button disabled>
     <mat-icon>lock</mat-icon>
     Login to edit or delete recipes
@@ -38,7 +38,7 @@
 
 
 <!-- Optional message when logged out -->
-<div class="action-buttons" *ngIf="!auth.isLoggedIn()">
+<div class="action-buttons" *ngIf="!auth.isLoggedInSignal()">
   <button mat-stroked-button disabled>
     <mat-icon>lock</mat-icon>
     Login to edit or delete recipes
@@ -59,7 +59,7 @@
           <div class="recipe-title-section">
             <h1 class="recipe-title">{{ recipe.name }}</h1>
 
-            <div class="action-buttons" *ngIf="auth.isLoggedIn()">
+            <div class="action-buttons" *ngIf="auth.isLoggedInSignal()">
               <button mat-raised-button color="accent" *ngIf="!isFavourite" (click)="addToFavourites()">
                 <mat-icon>favorite_border</mat-icon>
                 Add to Favourites

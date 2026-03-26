@@ -9,7 +9,7 @@
 
     <!-- Create Recipe (LOGGED IN ONLY) -->
     <button
-      *ngIf="auth.isLoggedIn()"
+      *ngIf="auth.isLoggedInSignal()"
       mat-raised-button
       class="create-btn"
       (click)="createRecipe()">
@@ -22,7 +22,7 @@
 
       <!-- Logged OUT -->
       <button
-        *ngIf="!auth.isLoggedIn()"
+        *ngIf="!auth.isLoggedInSignal()"
         mat-stroked-button
         class="login-btn"
         (click)="router.navigate(['/login'])">
@@ -40,7 +40,7 @@
       </button>
 
       <button
-        *ngIf="auth.isLoggedIn()"
+        *ngIf="auth.isLoggedInSignal()"
         mat-stroked-button
         class="favourites-btn"
         (click)="router.navigate(['/favourites'])">
@@ -49,9 +49,9 @@
       </button>
 
       <!-- Logged IN -->
-      <div *ngIf="auth.isLoggedIn()" class="user-info">
+      <div *ngIf="auth.isLoggedInSignal()" class="user-info">
         <mat-icon>account_circle</mat-icon>
-        <span class="user-email">{{ userEmail }}</span>
+        <span class="user-email">{{ auth.emailSignal() }}</span>
 
         <button
           mat-stroked-button
@@ -173,7 +173,7 @@
           <span>{{ recipe.visibility === 'public' ? 'Public' : 'Private' }}</span>
         </div>
 
-        <div class="view-count" *ngIf="isAdmin()">
+        <div class="view-count" *ngIf="auth.isAdminSignal()">
           <mat-icon>bar_chart</mat-icon>
           <span>Views: <strong>{{ recipe.viewCount || 0 }}</strong></span>
         </div>

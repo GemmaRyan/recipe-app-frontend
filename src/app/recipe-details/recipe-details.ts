@@ -130,7 +130,7 @@ deleteRecipe(): void {
 }
 
 isAdmin(): boolean {
-  return this.auth.getRole() === 'admin';
+  return this.auth.isAdmin();
 }
 
 canEditOrDelete(): boolean {
