@@ -80,7 +80,8 @@ export class EditRecipes implements OnInit {
       ]],
       recipe: this.fb.array([], [minArrayLengthValidator(1)]),
       cookingDuration: ['', [numbersSpacesDashesValidator()]],
-      imageUrl: ['']
+      imageUrl: [''],
+      visibility: ['public', Validators.required]
     });
   }
 

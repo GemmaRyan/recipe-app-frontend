@@ -16,6 +16,7 @@ export interface Recipe {
   createdByUsername?: string; 
   viewCount?: number;
   lastViewedAt?: string;
+  visibility?: 'public' | 'private';  
 }
 
 @Injectable({
@@ -90,5 +91,16 @@ export class RecipeService {
 
   getTopViewedRecipe(): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.apiUrl}/top-viewed`);
+  }
+  addFavourite(recipeId: string): Observable<any> {
+    return this.http.post(`${environment.apiUri}/auth/favourites/${recipeId}`, {});
+  }
+
+  removeFavourite(recipeId: string): Observable<any> {
+    return this.http.delete(`${environment.apiUri}/auth/favourites/${recipeId}`);
+  }
+
+  getFavourites(): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(`${environment.apiUri}/auth/favourites`);
   }
 }

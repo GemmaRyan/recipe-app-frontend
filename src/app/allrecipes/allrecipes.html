@@ -158,6 +158,11 @@
           </span>
         </div>
 
+        <div class="visibility-badge" *ngIf="recipe.visibility">
+          <mat-icon>{{ recipe.visibility === 'public' ? 'public' : 'lock' }}</mat-icon>
+          <span>{{ recipe.visibility === 'public' ? 'Public' : 'Private' }}</span>
+        </div>
+
         <div class="view-count" *ngIf="isAdmin()">
           <mat-icon>bar_chart</mat-icon>
           <span>Views: <strong>{{ recipe.viewCount || 0 }}</strong></span>

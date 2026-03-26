@@ -53,21 +53,22 @@ export class AddRecipe implements OnInit {
 
   ngOnInit(): void {
     this.recipeForm = this.fb.group({
-      name: ['', [
-        Validators.required, 
-        Validators.minLength(2),
-        alphanumericSpacesValidator()
-      ]],
-      origin: ['', [urlValidator()]],
-      ingredients: this.fb.array([], [minArrayLengthValidator(1)]),
-      difficulty: [1, [
-        Validators.required,
-        difficultyRangeValidator()
-      ]],
-      recipe: this.fb.array([], [minArrayLengthValidator(1)]),
-      cookingDuration: ['', [numbersSpacesDashesValidator()]],
-      imageUrl: ['']
-    });
+  name: ['', [
+    Validators.required,
+    Validators.minLength(2),
+    alphanumericSpacesValidator()
+  ]],
+  origin: ['', [urlValidator()]],
+  ingredients: this.fb.array([], [minArrayLengthValidator(1)]),
+  difficulty: [1, [
+    Validators.required,
+    difficultyRangeValidator()
+  ]],
+  recipe: this.fb.array([], [minArrayLengthValidator(1)]),
+  cookingDuration: ['', [numbersSpacesDashesValidator()]],
+  imageUrl: [''],
+  visibility: ['public', Validators.required]
+});
   }
 
   get name() {
