@@ -29,6 +29,7 @@ export class RecipeDetails implements OnInit {
   recipe: Recipe | null = null;
   loading = false;
   recipeId: string | null = null;
+  isFavourite = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +52,16 @@ loadRecipe(id: string): void {
     next: (data) => {
       this.recipe = data;
       this.loading = false;
+        if (this.auth.isLoggedIn()) {
+          this.recipeService.isFavourite(id).subscribe({
+            next: (result) => {
+              this.isFavourite = result.isFavourite;
+            },
+            error: (err) => {
+              console.error('Failed to check favourite status:', err);
+            }
+          });
+        }
 
       this.recipeService.trackRecipeView(id).subscribe({
         next: () => {
@@ -58,7 +69,7 @@ loadRecipe(id: string): void {
         },
         error: (err) => {
           console.error('Failed to count recipe view:', err);
-        }
+        } 
       });
     },
     error: (err) => {
@@ -124,6 +135,36 @@ isAdmin(): boolean {
 
 canEditOrDelete(): boolean {
   return this.auth.isLoggedIn() && (this.isOwner() || this.isAdmin());
+}
+
+addToFavourites(): void {
+  if (!this.recipeId) return;
+
+  this.recipeService.addFavourite(this.recipeId).subscribe({
+    next: () => {
+      this.isFavourite = true;
+      this.snackBar.open('Added to favourites', 'Close', { duration: 3000 });
+    },
+    error: (err) => {
+      console.error('Failed to add favourite:', err);
+      this.snackBar.open('Failed to add favourite', 'Close', { duration: 3000 });
+    }
+  });
+}
+
+removeFromFavourites(): void {
+  if (!this.recipeId) return;
+
+  this.recipeService.removeFavourite(this.recipeId).subscribe({
+    next: () => {
+      this.isFavourite = false;
+      this.snackBar.open('Removed from favourites', 'Close', { duration: 3000 });
+    },
+    error: (err) => {
+      console.error('Failed to remove favourite:', err);
+      this.snackBar.open('Failed to remove favourite', 'Close', { duration: 3000 });
+    }
+  });
 }
 
 }

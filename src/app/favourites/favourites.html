@@ -1,0 +1,75 @@
+<div class="favourites-container">
+  <div class="header-section">
+    <div class="header-top-row">
+      <h1 class="page-title">
+        <mat-icon class="header-icon">favorite</mat-icon>
+        My Favourites
+      </h1>
+
+      <button mat-stroked-button class="back-btn" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to All Recipes
+      </button>
+    </div>
+
+    <p class="page-subtitle">
+      View the recipes you have saved to your favourites list.
+    </p>
+  </div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
+
+  <div class="recipes-grid" *ngIf="!loading">
+    <mat-card class="recipe-card" *ngFor="let recipe of favouriteRecipes" (click)="viewRecipe(recipe._id)">
+      <img 
+        [src]="recipe.imageUrl || 'https://placehold.net/default.png'"
+        [alt]="recipe.name"
+        class="recipe-image"
+        mat-card-image>
+
+      <mat-card-header>
+        <mat-card-title>{{ recipe.name }}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="recipe-meta">
+          <div class="meta-item">
+            <mat-icon>local_fire_department</mat-icon>
+            <span class="difficulty-badge">{{ getDifficultyStars(recipe.difficulty) }}</span>
+          </div>
+
+          <div class="meta-item" *ngIf="recipe.cookingDuration">
+            <mat-icon>schedule</mat-icon>
+            <span>{{ recipe.cookingDuration }}</span>
+          </div>
+        </div>
+
+        <div class="made-by">
+          <mat-icon>person</mat-icon>
+          <span>
+            Made by <strong>{{ recipe.createdByUsername }}</strong>
+          </span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-button color="primary" (click)="viewRecipe(recipe._id); $event.stopPropagation()">
+          <mat-icon>visibility</mat-icon>
+          View Recipe
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <div class="no-results" *ngIf="favouriteRecipes.length === 0">
+      <mat-icon class="no-results-icon">favorite_border</mat-icon>
+      <h2>No Favourite Recipes Yet</h2>
+      <p>Save recipes to your favourites and they will appear here.</p>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        <mat-icon>menu_book</mat-icon>
+        Browse Recipes
+      </button>
+    </div>
+  </div>
+</div>

@@ -92,15 +92,19 @@ export class RecipeService {
   getTopViewedRecipe(): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.apiUrl}/top-viewed`);
   }
+  getFavourites(): Observable<Recipe[]> {
+  return this.http.get<Recipe[]>(`${environment.apiUri}/auth/favourites`);
+  }
+
+  isFavourite(recipeId: string): Observable<{ isFavourite: boolean }> {
+    return this.http.get<{ isFavourite: boolean }>(`${environment.apiUri}/auth/favourites/${recipeId}`);
+  }
+
   addFavourite(recipeId: string): Observable<any> {
     return this.http.post(`${environment.apiUri}/auth/favourites/${recipeId}`, {});
   }
 
   removeFavourite(recipeId: string): Observable<any> {
     return this.http.delete(`${environment.apiUri}/auth/favourites/${recipeId}`);
-  }
-
-  getFavourites(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${environment.apiUri}/auth/favourites`);
   }
 }

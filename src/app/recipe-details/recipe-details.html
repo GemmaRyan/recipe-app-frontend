@@ -59,6 +59,18 @@
           <div class="recipe-title-section">
             <h1 class="recipe-title">{{ recipe.name }}</h1>
 
+            <div class="action-buttons" *ngIf="auth.isLoggedIn()">
+              <button mat-raised-button color="accent" *ngIf="!isFavourite" (click)="addToFavourites()">
+                <mat-icon>favorite_border</mat-icon>
+                Add to Favourites
+              </button>
+
+              <button mat-raised-button color="warn" *ngIf="isFavourite" (click)="removeFromFavourites()">
+                <mat-icon>favorite</mat-icon>
+                Remove Favourite
+              </button>
+            </div>
+
             <div class="recipe-meta-header">
               <div class="difficulty-display">
                 <mat-icon>local_fire_department</mat-icon>

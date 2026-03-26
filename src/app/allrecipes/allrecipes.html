@@ -39,6 +39,15 @@
         Register
       </button>
 
+      <button
+        *ngIf="auth.isLoggedIn()"
+        mat-stroked-button
+        class="favourites-btn"
+        (click)="router.navigate(['/favourites'])">
+        <mat-icon>favorite</mat-icon>
+        Favourites
+      </button>
+
       <!-- Logged IN -->
       <div *ngIf="auth.isLoggedIn()" class="user-info">
         <mat-icon>account_circle</mat-icon>
@@ -52,6 +61,7 @@
           Logout
         </button>
       </div>
+
 
     </div>
   </div>

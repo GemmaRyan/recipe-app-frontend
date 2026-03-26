@@ -270,3 +270,105 @@
     color: #8b4513;
   }
 }
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.back-btn {
+  font-weight: 600;
+
+  mat-icon {
+    margin-right: 0.4rem;
+  }
+}
+
+.delete-btn {
+  background-color: #d32f2f !important;
+  color: white !important;
+
+  &:hover {
+    background-color: #b71c1c !important;
+  }
+}
+
+.recipe-title-section {
+  flex: 1;
+}
+
+.recipe-title {
+  margin-bottom: 1rem;
+}
+
+.favourite-section {
+  margin: 1rem 0 1.25rem 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.favourite-btn {
+  font-weight: 600;
+  padding: 0.55rem 1.25rem;
+  border-radius: 8px;
+
+  mat-icon {
+    margin-right: 0.45rem;
+  }
+}
+
+.add-favourite-btn {
+  background-color: #8b4513 !important;
+  color: white !important;
+
+  &:hover {
+    background-color: #6d3410 !important;
+  }
+}
+
+.remove-favourite-btn {
+  background-color: #d32f2f !important;
+  color: white !important;
+
+  &:hover {
+    background-color: #b71c1c !important;
+  }
+}
+
+.recipe-meta-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .favourite-section {
+    width: 100%;
+  }
+
+  .favourite-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
