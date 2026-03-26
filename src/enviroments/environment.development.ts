@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUri: 'http://localhost:3001/api'
+    apiUri: 'https://recipe-app-backend-8br9.onrender.com'
   };
