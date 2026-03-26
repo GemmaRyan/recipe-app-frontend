@@ -18,6 +18,7 @@ import {
   minArrayLengthValidator,
   difficultyRangeValidator 
 } from '../../validators/recipeValidator';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   selector: 'app-add-recipe',
@@ -48,7 +49,8 @@ export class AddRecipe implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private recipeService: RecipeService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private analytics: AnalyticsService
   ) {}
 
   ngOnInit(): void {
@@ -150,6 +152,10 @@ export class AddRecipe implements OnInit {
       next: () => {
         this.snackBar.open('Recipe created successfully', 'Close', { duration: 3000 });
         this.router.navigate(['/recipes']);
+        this.analytics.trackEvent('recipe_created', {
+          recipe_name: recipeData.name,
+          visibility: recipeData.visibility || 'public'
+        });
       },
       error: (err) => {
         console.error('Error creating recipe:', err);

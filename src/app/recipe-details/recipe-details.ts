@@ -9,6 +9,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -36,7 +37,8 @@ export class RecipeDetails implements OnInit {
     private router: Router,
     private recipeService: RecipeService,
     private snackBar: MatSnackBar,
-    public auth: AuthService
+    public auth: AuthService,
+    private analytics: AnalyticsService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +58,11 @@ loadRecipe(id: string): void {
           this.recipeService.isFavourite(id).subscribe({
             next: (result) => {
               this.isFavourite = result.isFavourite;
+              this.analytics.trackEvent('recipe_view', {
+                recipe_id: id,
+                recipe_name: this.recipe?.name,
+                visibility: this.recipe?.visibility
+              });
             },
             error: (err) => {
               console.error('Failed to check favourite status:', err);
@@ -143,6 +150,10 @@ addToFavourites(): void {
   this.recipeService.addFavourite(this.recipeId).subscribe({
     next: () => {
       this.isFavourite = true;
+      this.analytics.trackEvent('add_to_favourites', {
+        recipe_id: this.recipeId,
+        recipe_name: this.recipe?.name
+      });
       this.snackBar.open('Added to favourites', 'Close', { duration: 3000 });
     },
     error: (err) => {
@@ -158,6 +169,10 @@ removeFromFavourites(): void {
   this.recipeService.removeFavourite(this.recipeId).subscribe({
     next: () => {
       this.isFavourite = false;
+      this.analytics.trackEvent('remove_from_favourites', {
+        recipe_id: this.recipeId,
+        recipe_name: this.recipe?.name
+      });
       this.snackBar.open('Removed from favourites', 'Close', { duration: 3000 });
     },
     error: (err) => {
